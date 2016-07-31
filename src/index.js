@@ -17,6 +17,7 @@ let todos = [
 ];
 
 const TodoList = React.createClass({
+
     render() {
         return (
             <div>
@@ -43,13 +44,38 @@ const TodoForm = React.createClass ({
 });
 
 const Todo = React.createClass({
+
+    createTask(event) {
+        if (event.key != 'Enter') {
+            return;
+        }
+        let task = this.refs.addTask;
+        if (task.value === '') {
+            return false;
+        }
+        this.setState(function () {
+            let todo = {
+                    task : task.value,
+                    completed: false
+                };
+            todos.push(todo);
+            return todos;
+
+        })
+    },
+
     render: function render() {
         return (
             <ul>
-                <li><h1>Todos</h1></li>
-                <li><input type="text" placeholder="what to be done?" id="todos"/></li>
-                <li><TodoList /></li>
-                <li><TodoForm /></li>
+                <li>
+                    <input type="text" placeholder="what to be done?" id="todos" ref="addTask" onKeyPress={this.createTask}/>
+                </li>
+                <li>
+                    <TodoList />
+                </li>
+                <li>
+                    <TodoForm />
+                </li>
             </ul>
         );
     }
