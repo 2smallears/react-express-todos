@@ -16,7 +16,31 @@ let todos = [
     }
 ];
 
+
 const TodoList = React.createClass({
+
+    /*addLine(event){
+        if (event !== 'click') {
+            return;
+        }
+    }
+
+    ,
+
+    deleteTask(event){
+      let task = this.refs.item;
+        this.setState(function () {
+            todos.slice(task, 1);
+            return todos;
+        });
+
+    },
+
+    change(){
+      $(this.refs.change.value).css({
+          textDecoration: line-through
+      });
+    },*/
 
     render() {
         return (
@@ -27,13 +51,15 @@ const TodoList = React.createClass({
                         className = "completed";
                     }
                     return <li className={className} key={i}>
-                        <input type="text" value={todo.task} /><button>X</button>
+                        <input type="text" refs="change" value={todo.task} />
+                        <button ref="item">X</button>
                     </li>
                 })}
             </div>
         );
     }
 });
+
 const TodoForm = React.createClass ({
     render() {
         return (
@@ -80,6 +106,7 @@ const Todo = React.createClass({
         );
     }
 });
+
 
 ReactDOM.render(
     <Todo/>, document.getElementById('AppRoot')
